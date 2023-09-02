@@ -1,0 +1,40 @@
+verbatim:
+  cabal-version: 3.0
+
+license: BSD-3-Clause
+license-file: LICENSE
+name: "hcat"
+version: 0.1
+synopsis: "An example command line pager written in Haskell"
+homepage: https://effective-haskell.com
+author: Rebecca Skinner
+maintainer: rebecca@rebeccaskinner.net
+
+ghc-options:
+  - -Wall -Werror
+
+library:
+  source-dirs: src
+  ghc-options: -O2
+  dependencies:
+    - base
+    - text
+    - process
+    - directory
+
+executable:
+  source-dirs: app
+  main: Main.hs
+  ghc-options: -O2
+  dependencies:
+    - base
+    - hcat
+
+tests:
+  test:
+    main: Spec.hs
+    source-dirs: test
+    dependencies:
+      - base
+      - hspec
+      - hcat

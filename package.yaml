@@ -10,6 +10,10 @@ homepage: https://effective-haskell.com
 author: Rebecca Skinner
 maintainer: rebecca@rebeccaskinner.net
 
+default-extensions:
+  - DerivingStrategies
+  - ImportQualifiedPost
+
 ghc-options:
   - -Wall -Werror
 
@@ -21,6 +25,7 @@ library:
     - text
     - process
     - directory
+    - time
 
 executable:
   source-dirs: app

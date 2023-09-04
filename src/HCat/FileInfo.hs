@@ -1,9 +1,5 @@
 module HCat.FileInfo where
--- import System.Directory
-import HCat.Foo
-
-fileInfoTest :: Int
-fileInfoTest = fooTest
+import HCat.ByteUnits
 --
 -- getFileInfo :: FilePath -> IO FileInfo
 -- getFileInfo fname = do

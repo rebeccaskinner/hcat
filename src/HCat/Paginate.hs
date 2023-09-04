@@ -1,23 +1,15 @@
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE DerivingStrategies #-}
 module HCat.Paginate where
-import Data.Word
+import HCat.Types
 import Data.Text (Text)
 import Data.Char
 import Data.Text qualified as Text
 import Data.Text.Unsafe (reverseIter, Iter(..))
 
-newtype Header a = Header {getHeader :: [a]}
-  deriving newtype (Eq, Show, Foldable)
+headerText :: Header Text -> Text
+headerText = Text.unlines . getHeader
 
-newtype Footer a = Footer {getFooter :: [a]}
-  deriving newtype (Eq, Show, Foldable)
-
-newtype PageWidth = PageWidth {getPageWidth :: Word32 }
-  deriving newtype (Eq, Ord, Enum, Num, Real, Integral)
-
-newtype PageHeight = PageHeight {getPageHeight :: Word32 }
-  deriving newtype (Eq, Ord, Enum, Num, Real, Integral)
+footerText :: Footer Text -> Text
+footerText = Text.unlines . getFooter
 
 wrapLine :: Int -> Text -> [Text]
 wrapLine lineLength line
@@ -46,6 +38,16 @@ findLastSpace line idx
 chunksOf :: Int -> [a] -> [[a]]
 chunksOf _ [] = []
 chunksOf n xs = let (h,t) = splitAt n xs in h : chunksOf n t
+
+paddedPage :: PageHeight -> Text -> Header Text -> [Text] -> Footer Text -> Text
+paddedPage height paddingText header body footer =
+  let
+    headerSize = length header
+    bodySize = length body
+    footerSize = length footer
+    paddingSize = fromIntegral height - (headerSize + bodySize + footerSize)
+    padding = Text.unlines $ replicate paddingSize paddingText
+  in headerText header <> Text.unlines body <> padding <> footerText footer
 
 pagesWith :: PageHeight -> Header a -> [a] -> Footer a -> [[a]]
 pagesWith pageSize header contents footer =

@@ -2,3 +2,4 @@ hcat.cabal
 TAGS
 result
 .direnv
+dist-newstyle

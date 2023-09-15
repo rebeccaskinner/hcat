@@ -1,9 +1,23 @@
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE DerivingStrategies #-}
 module HCat.Paginate where
-import HCat.Types
 import Data.Text (Text)
 import Data.Char
 import Data.Text qualified as Text
 import Data.Text.Unsafe (reverseIter, Iter(..))
+import Data.Word
+
+newtype Header a = Header {getHeader :: [a]}
+  deriving newtype (Eq, Show, Foldable)
+
+newtype Footer a = Footer {getFooter :: [a]}
+  deriving newtype (Eq, Show, Foldable)
+
+newtype PageWidth = PageWidth {getPageWidth :: Word32 }
+  deriving newtype (Eq, Ord, Enum, Num, Real, Integral)
+
+newtype PageHeight = PageHeight {getPageHeight :: Word32 }
+  deriving newtype (Eq, Ord, Enum, Num, Real, Integral)
 
 headerText :: Header Text -> Text
 headerText = Text.unlines . getHeader

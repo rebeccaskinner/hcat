@@ -15,7 +15,7 @@ default-extensions:
   - ImportQualifiedPost
 
 ghc-options:
-  - -Wall -Werror
+  - -Wall -Wno-missing-home-modules -Wno-type-defaults
 
 library:
   source-dirs: src
@@ -23,6 +23,7 @@ library:
   dependencies:
     - base
     - text
+    - bytestring
     - process
     - directory
     - time

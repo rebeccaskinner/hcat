@@ -1,7 +1,7 @@
 module HCat.FileInfo where
-import HCat.Types
-import HCat.ByteUnit
+import HCat.ByteUnits
 import System.Directory
+import Data.Time.Clock (UTCTime)
 
 data FileInfo = FileInfo
   { filePath  :: FilePath

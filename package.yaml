@@ -13,6 +13,7 @@ maintainer: rebecca@rebeccaskinner.net
 default-extensions:
   - DerivingStrategies
   - ImportQualifiedPost
+  - TypeApplications
 
 ghc-options:
   - -Wall -Wno-missing-home-modules -Wno-type-defaults
@@ -43,4 +44,5 @@ tests:
     dependencies:
       - base
       - hspec
+      - hspec-expectations
       - hcat
